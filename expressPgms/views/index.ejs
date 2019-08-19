@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=h1, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>  <%= title %>  </title>
+<link rel="stylesheet" href="/css/styles.css">
+
+
+</head>
+<body >
+
+<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/contact">Contact</a>
+          </li>
+        
+        </ul>
+      </nav>
+      
+
+
+
+   
+<div class="container">
+
+
+
+        <div class="row justify-content-around">
+        
+        <div class="col col-12 col-sm-6"> 
+
+            <table class="table">
+         <thead class="thead-dark">     <tr> <th> STUDENTS </th> </tr> </thead>
+
+                <% for(var i=0;i<names.length;i++){ %>
+
+                        <tr>  <td>  <%=names[i] %>   </td></tr>
+
+                    
+                    <%}%>
+
+
+            </table>
+
+
+        </div>
+
+
+        <br>
+        <br>
+        
+        <div class="col col-12 col-sm-6 well"> 
+          <form action="/read" method="GET">   
+            <table class="table">
+
+                <tr>  <td> NAME </td> <td>  <input type="text" class="form-control" name="name"> </td>  </tr>
+          <tr> <td>ROLL NO</td> <td> <input type="text" class="form-control" name="rollno"> </td> </tr>
+          <tr><td>ADMNO</td>  <td><input type="text" class="form-control"></td></tr>
+        <tr><td>College</td> <td><input type="text" class="form-control"></td></tr>  
+        <tr><td>Address</td> <td> <textarea class="form-control" cols="30" rows="10"></textarea> </td></tr>  
+
+        <tr> <td></td> <td> <Button type="submit" class="btn btn-warning">SUBMIT</Button> </td>  </tr>
+
+        
+        </table> </form>
+                
+                </div>
+        
+        
+        </div>
+        
+        </div>
+
+</body>
+</html>
