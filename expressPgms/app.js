@@ -1,6 +1,11 @@
 const Express=require('express');
 var bodyParser = require('body-parser');
+const Mongoose = require("mongoose");
 
+const PersonModel = Mongoose.model("person", {
+    firstname: String,
+    lastname: String
+});
 
 var app=new Express();
 
@@ -12,7 +17,9 @@ app.use(bodyParser.json());
 
 app.use(bodyParser.urlencoded({ extended: true })); 
 app.use(Express.urlencoded())
-
+//mongodb+srv://anishsnair:<password>@cluster0-rqfpy.mongodb.net/test?retryWrites=true&w=majority
+// Mongoose.connect("mongodb://localhost/thepolyglotdeveloper");
+Mongoose.connect("mongodb+srv://anishsnair:hello12345@cluster0-rqfpy.mongodb.net/test?retryWrites=true&w=majority");
 
 
 
@@ -20,6 +27,38 @@ app.use(Express.urlencoded())
 
 
 students=["Anjali","Rahul","Bijitha","Arun","Manu"];
+
+
+app.post("/person", async (request, response) => {
+    try {
+        var person = new PersonModel(request.body);
+        var result = await person.save();
+        response.send(result);
+    } catch (error) {
+        response.status(500).send(error);
+    }
+});
+
+app.get("/people", async (request, response) => {
+    try {
+        var result = await PersonModel.find().exec();
+        response.send(result);
+    } catch (error) {
+        response.status(500).send(error);
+    }
+});
+
+
+
+app.get("/person/:id", async (request, response) => {
+    try {
+        var person = await PersonModel.find( {firstname:request.params.id}).exec();
+        response.send(person);
+    } catch (error) {
+        response.status(500).send(error);
+    }
+});
+
 
 
 
