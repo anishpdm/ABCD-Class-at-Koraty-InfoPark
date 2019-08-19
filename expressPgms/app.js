@@ -1,6 +1,8 @@
 const Express=require('express');
 var bodyParser = require('body-parser');
 const Mongoose = require("mongoose");
+var request = require('request');
+
 
 const PersonModel = Mongoose.model("person", {
     firstname: String,
@@ -27,6 +29,17 @@ Mongoose.connect("mongodb+srv://anishsnair:hello12345@cluster0-rqfpy.mongodb.net
 
 
 students=["Anjali","Rahul","Bijitha","Arun","Manu"];
+
+const url = 'http://localhost:3003/people';
+
+app.get('/fetch', function(req, res) {
+  request(url, function(error, response, body) {
+    const info = JSON.parse(body);
+    console.log(info);
+    res.render('fetch', { info });
+  });
+});
+
 
 
 app.post("/person", async (request, response) => {
@@ -94,6 +107,6 @@ res.send( " {'result' :" + String(z) + "}");
 });
 
 
-app.listen(process.env.PORT || 3000,()=>{
+app.listen(process.env.PORT || 3003,()=>{
     console.log("Server Running on http://localhost:3000")
 });
