@@ -1,13 +1,7 @@
 const Express=require('express');
 var bodyParser = require('body-parser');
-const Mongoose = require("mongoose");
-var request = require('request');
-
-
-const PersonModel = Mongoose.model("person", {
-    firstname: String,
-    lastname: String
-});
+const Mongoose= require('mongoose');
+var request=require('request');
 
 var app=new Express();
 
@@ -18,9 +12,18 @@ app.use(Express.static(__dirname+"/public"));
 app.use(bodyParser.json());
 
 app.use(bodyParser.urlencoded({ extended: true })); 
-app.use(Express.urlencoded())
-//mongodb+srv://anishsnair:<password>@cluster0-rqfpy.mongodb.net/test?retryWrites=true&w=majority
-// Mongoose.connect("mongodb://localhost/thepolyglotdeveloper");
+
+const StudentModel=Mongoose.model("studentdetails",
+{
+name:String,
+rollno:String,
+admno:String,
+college:String
+}
+);
+
+
+//Mongoose.connect("mongodb://localhost:27017/collegedb");
 Mongoose.connect("mongodb+srv://anishsnair:hello12345@cluster0-rqfpy.mongodb.net/test?retryWrites=true&w=majority");
 
 
@@ -30,49 +33,6 @@ Mongoose.connect("mongodb+srv://anishsnair:hello12345@cluster0-rqfpy.mongodb.net
 
 students=["Anjali","Rahul","Bijitha","Arun","Manu"];
 
-const url = 'http://localhost:3003/people';
-
-app.get('/fetch', function(req, res) {
-  request(url, function(error, response, body) {
-    const info = JSON.parse(body);
-    console.log(info);
-    res.render('fetch', { info });
-  });
-});
-
-
-
-app.post("/person", async (request, response) => {
-    try {
-        var person = new PersonModel(request.body);
-        var result = await person.save();
-        response.send(result);
-    } catch (error) {
-        response.status(500).send(error);
-    }
-});
-
-app.get("/people", async (request, response) => {
-    try {
-        var result = await PersonModel.find().exec();
-        response.send(result);
-    } catch (error) {
-        response.status(500).send(error);
-    }
-});
-
-
-
-app.get("/person/:id", async (request, response) => {
-    try {
-        var person = await PersonModel.find( {firstname:request.params.id}).exec();
-        response.send(person);
-    } catch (error) {
-        response.status(500).send(error);
-    }
-});
-
-
 
 
 app.get('/',(req,res)=>{
@@ -81,19 +41,81 @@ app.get('/',(req,res)=>{
 
 });
 
-app.get('/home',(req,res)=>{
+const getdataApi="http://localhost:3003/getdatas";
 
-    res.send("Welcome to my Home Page");
+app.get('/view',(req,res)=>{
+
+request(getdataApi,(error,response,body)=>{
+var data=JSON.parse(body);
+
+console.log(data);
+res.render('view',{'data':data});
+
+});
+
 
 });
 
-app.get('/read',(req,res)=>{
 
-    var name=req.body.name;
 
-  res.send(name);
+app.get('/getAstudentApi',(req,res)=>{
+
+// var Admno=req.body.admno;
+StudentModel.find(req.body,(error,data)=>{
+    if(error){
+        throw error;
+    }
+    else{
+        res.send(data)
+    }
+});
+
+
 
 });
+
+
+app.get('/getdatas', (req,res)=>{
+
+     result= StudentModel.find( (error,data)=>{
+       if(error){
+           throw error;
+       }
+       else{
+        res.send(data);
+
+       }
+
+     } );
+
+});
+
+
+
+
+app.post('/read', (req,res)=>{
+
+    console.log(req.body);
+
+    var student=new StudentModel(req.body);
+    var result=  student.save( (error,data)=>{
+if(error){
+throw error;
+res.send(error);
+}
+else{
+    res.send('User Created'+data);
+
+}
+    });
+   
+
+ 
+
+});
+
+
+
 app.get('/add/:num1/:num2',(req,res)=>{
     console.log(req.params);
 
