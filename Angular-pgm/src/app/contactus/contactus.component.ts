@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {NgForm} from '@angular/forms';
 
+import {ApiService} from '../api.service';
+
+
 
 @Component({
   selector: 'app-contactus',
@@ -8,6 +11,12 @@ import {NgForm} from '@angular/forms';
   styleUrls: ['./contactus.component.css']
 })
 export class ContactusComponent implements OnInit {
+
+  constructor(private  apiService:  ApiService) { }
+
+  ngOnInit() {
+    
+  }
 
   getName='';
   getEmail='';
@@ -20,13 +29,18 @@ export class ContactusComponent implements OnInit {
     this.getEmail=data.value.email;
     this.getMsg=data.value.msg;
 
+    this.apiService.sendToServerData(data.value).subscribe((response) => {
+      console.log(response);
+      alert('Succesfully Inserted')
+     
+  });
+
 
   }
 
 
-  constructor() { }
+  
+  
 
-  ngOnInit() {
-  }
 
 }
