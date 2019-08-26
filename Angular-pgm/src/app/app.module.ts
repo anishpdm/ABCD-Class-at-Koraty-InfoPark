@@ -8,6 +8,14 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { ContactusComponent } from './contactus/contactus.component';
 import { ViewdataComponent } from './viewdata/viewdata.component';
 
+import { Routes, RouterModule } from '@angular/router';
+
+
+const appRoutes:Routes = [
+  {path:'', component: ContactusComponent},
+{path:'viewall', component: ViewdataComponent}
+
+]
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,9 +26,11 @@ import { ViewdataComponent } from './viewdata/viewdata.component';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule.forRoot(appRoutes)
+
   ],
   providers: [],
-  bootstrap: [NavbarComponent,AppComponent,ContactusComponent,ViewdataComponent]
+  bootstrap: [NavbarComponent,AppComponent]
 })
 export class AppModule { }
