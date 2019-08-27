@@ -1,23 +1,25 @@
 import { Injectable } from '@angular/core';
 import { HttpClient} from  '@angular/common/http';
-
+	
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
 
-  constructor(private httpClient:HttpClient) { }
+  constructor(private http:HttpClient) { }
 
-  getData(){
-    return  this.httpClient.get('http://localhost:3000/getcontact');
+insertData(data){
+  return this.http.post("http://localhost:3003/addcontact",data);
+
 }
 
 
-  sendToServerData(xx){
-    return  this.httpClient.post('http://localhost:3000/addcontact',xx);
+getData(){
 
-  }
+  return this.http.get("http://localhost:3003/getcontact");
+}
+
 
 
 }

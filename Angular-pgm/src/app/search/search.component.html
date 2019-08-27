@@ -1,0 +1,10 @@
+<p *ngIf="status else nodata"> 
+  search works!
+</p>
+
+<form (ngSubmit)="onSubmit(f)"   #f=ngForm>
+  <input type="text" name="name" ngModel>
+  <Button [disabled]="status" type="submit"> Click </Button>
+</form>
+
+<ng-template #nodata>No Data Available</ng-template>
