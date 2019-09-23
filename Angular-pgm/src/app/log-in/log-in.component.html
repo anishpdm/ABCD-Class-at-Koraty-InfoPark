@@ -1,0 +1,30 @@
+<div class="container">
+
+
+  <div class="row">
+
+    <div class="col col-12 col-sm-12">
+      <form (ngSubmit)=onSubmit(f) #f="ngForm">
+        <table  class="table">
+          <tr>
+            <td> Username</td>
+            <td> <input type="text" name="uname" class="form-control" ngModel></td>
+          </tr>
+
+          <tr>
+            <td> Password</td>
+            <td> <input type="password" name="pass" class="form-control" ngModel></td>
+          </tr>
+
+          <tr>
+            <td></td>
+            <td><button class="btn btn-primary" type="submit" name="button">LOGIN</button> </td>
+          </tr>
+        </table>
+      </form>
+
+    </div>
+
+  </div>
+
+</div>

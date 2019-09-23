@@ -1,10 +1,58 @@
-<p *ngIf="status else nodata"> 
-  search works!
-</p>
+<app-navbar> </app-navbar>
 
-<form (ngSubmit)="onSubmit(f)"   #f=ngForm>
-  <input type="text" name="name" ngModel>
-  <Button [disabled]="status" type="submit"> Click </Button>
-</form>
+  <br>
+<br>
 
-<ng-template #nodata>No Data Available</ng-template>
+<div class="row">
+  <div class="col col-12 col-sm-4">
+  </div>
+  <div class="col col-12 col-sm-4">
+
+
+
+    <form (ngSubmit)="onSubmit(f)"   #f=ngForm>
+<table class="table">
+  <tr><td>  </td>  <td>       <input type="text" placeholder="Enter a Name" name="name" class="form-control" ngModel>
+  </td></tr>
+
+  <tr><td></td> <td>      <Button  type="submit" class="btn btn-success"> SEARCH </Button>
+  </td></tr>
+</table>
+
+    </form>
+
+
+    <p *ngIf="status else nodata">
+    </p>
+
+    <br>
+    <ng-template #nodata>
+
+      <table class="table">
+        <tr> <th>NAME  </th> <th>MESSAGE </th>  <th> EMAIL </th>  </tr>
+
+
+        <tr *ngFor="let data of mydata">
+          <td> <input type="text"  [(ngModel)]='data.name' name='name' >  </td>
+          <td><input type="text" [(ngModel)]='data.msg' name='msg' >  </td>
+          <td> <input type="text" [(ngModel)]='data.email' name='email'> </td>
+
+
+  <tr>
+      <td> <Button class="btn btn-primary" (click)="editbutton()">EDIT</Button></td>
+
+      <td> <Button class="btn btn-info" (click)="delbutton()">DELETE</Button>  </td>
+
+
+
+
+        </tr>
+
+        </table>
+    </ng-template>
+
+
+
+  </div>
+  <div class="col col-12 col-sm-4"></div>
+</div>
